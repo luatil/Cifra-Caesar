@@ -1,6 +1,6 @@
 # Cifra-Caesar
 
-* Parte 1
+## Parte 1
 
 Criptografando textos - Entrega: 25 de setembro de 2020
 
@@ -46,7 +46,7 @@ Usando d 1 = 10 e d 2 = 7, (imprimindo em 80 colunas)
 OtovyhzpukhsvbyhzcyspukhzusMsvypukhzlLlspukhzcyiyhukhzusLypujhtuvzaltwvzkhzLlysp
 ukhzusKzcpukhzclukvkhzchyhukhzwa
 
-* Parte 2: Como ler um arquivo? 
+## Parte 2: Como ler um arquivo? 
 
 Seu EP deverá ler da entrada dois inteiros d1 e d2, deslocamento
 das máiusculas e minúsculas, respectivamente. 
@@ -78,7 +78,7 @@ A função feof verifica se o arquivo acabou (end of file).
 
 Importante: Não é permitido o use neste EP de funções da biblioteca strings.
 
-Parte 3: Desafio
+## Parte 3: Desafio
 
 - Texto 1:
 
