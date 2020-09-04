@@ -6,9 +6,9 @@ char * especiais_para_letras(char *frase) {
     char c;
     while(*frase) {
         switch(*frase) {
-//            case ' ':
-//                p++;
-//                break;
+            case ' ':
+                p--;
+                break;
             case ',':
                 *p = 'v';
                 p++;
