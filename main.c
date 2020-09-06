@@ -56,9 +56,9 @@ char * rotacao(char *frase2, char d1, char d2) {
     char *init2 = p2;
     while(*frase2) {
         if(*frase2 >= 'A' && *frase2 <= 'Z')
-            *p2 = *frase2 + d1;
+            *p2 = 'A' + ((*frase2 - 'A' + d1) % 26);
         else if(*frase2 >= 'a' && *frase2 <= 'z')
-            *p2 = *frase2 + d2;
+            *p2 = 'a' + ((*frase2 - 'a' + d2) % 26);
         else 
             *p2 = *frase2;
         p2++;
@@ -100,9 +100,24 @@ void test_especiais_para_letras() {
     }
     else 
         printf("Todos os testes de especiais_para_letras passaram\n");
+    free(t);
+}
+
+void test_rotacao() {
+    char *d = "Paraumbomentendedorvrmeiapalavrabastapt";
+    char *t = rotacao(d, 3, 5);
+    char *target = "Sfwfzrgtrjsyjsijitwawrjnfufqfawfgfxyfuy";
+    if(!string_compare(t, target))  {
+        printf("Primeiro test de rotacao falhou\n");
+        printf("%s\n", t);
+        printf("%s\n", target);
+    }
+    else 
+        printf("Os testes de rotacao() passaram\n");
 }
 
 int main() {
     test_especiais_para_letras();
+    test_rotacao();
     return 0;
 }
