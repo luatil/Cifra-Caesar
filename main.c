@@ -3,7 +3,7 @@
 
 // TODO Create unit tests for both functions
 
-#define TAMANHO_DA_FRASE 100
+#define TAMANHO_DA_FRASE 1000
 
 char * especiais_para_letras(char *frase) {
     char *p = malloc(TAMANHO_DA_FRASE);
@@ -116,8 +116,30 @@ void test_rotacao() {
         printf("Os testes de rotacao() passaram\n");
 }
 
+char * aplicar_rotacao(char * p, int d1, int d2) {
+    return rotacao(especiais_para_letras(p), (char)d1, (char)d2);
+}
+
+void test_both() {
+    char * big = "Em horas inda louras, lindas\n"
+                 "Clorindas e Belindas, brandas\n"
+                 "Brincam nos tempos das Berlindas\n"
+                 "As vindas vendo das varandas.";
+    printf("%s\n", big);
+    char *t = aplicar_rotacao(big, 10, 7);
+    char *target = "OtovyhzpukhsvbyhzcyspukhzusMsvypukhzlLlspukhzcyiyhukhzusLypujhtuvzaltwvzkhzLlyspukhzusKzcpukhzclukvkhzchyhukhzwa";
+    if(!string_compare(t, target)) 
+        printf("A função aplicar_rotacao() não está funcionando.\n");
+    else 
+        printf("aplicar_rotacao() está funcionando.\n");
+}
+
+//Usando d 1 = 10 e d 2 = 7, (imprimindo em 80 colunas)
+//
+//OtovyhzpukhsvbyhzcyspukhzusMsvypukhzlLlspukhzcyiyhukhzusLypujhtuvzaltwvzkhzLlysp
+//ukhzusKzcpukhzclukvkhzchyhukhzwa
+
 int main() {
-    test_especiais_para_letras();
-    test_rotacao();
+    test_both();
     return 0;
 }
