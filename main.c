@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 // TODO Create unit tests for both functions
 
+#define TAMANHO_DA_FRASE 100
 
 char * especiais_para_letras(char *frase) {
-    char *p;
+    char *p = malloc(TAMANHO_DA_FRASE);
     char *init = p;
     while(*frase) {
         switch(*frase) {
@@ -41,6 +43,8 @@ char * especiais_para_letras(char *frase) {
         p++;
         frase++;
     }
+    p++;
+    p = '\0';
     return init;
 }
 
@@ -48,7 +52,7 @@ char * especiais_para_letras(char *frase) {
 // d1 aplica uma rotação para as maiúsculas
 // d2 aplica uma rotação para as minúsculas
 char * rotacao(char *frase2, char d1, char d2) {
-    char *p2;
+    char *p2 = malloc(TAMANHO_DA_FRASE);
     char *init2 = p2;
     while(*frase2) {
         if(*frase2 >= 'A' && *frase2 <= 'Z')
@@ -90,11 +94,15 @@ void test_string_compare() {
 
 void test_especiais_para_letras() {
     char *d = "Para um bom entendedor, meia palavra basta.";
-    char *p = especiais_para_letras(d);
+    char *t = especiais_para_letras(d);
+    if(!string_compare(t, "Paraumbomentendedorvrmeiapalavrabastapt")) {
+        printf("Primeiro test de especiais_para_letras falhou\n");
+    }
+    else 
+        printf("Todos os testes de especiais_para_letras passaram\n");
 }
 
 int main() {
-    test_string_compare();
+    test_especiais_para_letras();
     return 0;
-
 }
