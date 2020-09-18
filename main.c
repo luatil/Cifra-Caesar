@@ -1,12 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO Create unit tests for both functions
+// TODO test bigger than 26 values
+// TODO solve valgrind jump depends on uninitialised value(s)
+// TODO test the chalenges
 
-#define TAMANHO_DA_FRASE 1000
+char * especiais_para_letras(char *frase, int tamanho_da_frase);
+char * rotacao(char *frase2, char d1, char d2, int tamanho_da_frase);
+char * aplicar_rotacao(char * p, int d1, int d2, int tamanho_da_frase);
+char * realocar_memoria(char * p, int *tamanho);
 
-char * especiais_para_letras(char *frase) {
-    char *p = malloc(TAMANHO_DA_FRASE);
+int main() {
+    int d1, d2;
+    printf("Digite o valor dos deslocamentos d1 e d2: \n");
+    scanf("%d %d", &d1, &d2);
+
+    printf("Digite o nome do arquivo a ser lido:\n");
+    char nome[80];
+    scanf("%s", nome);
+    FILE * arq;
+    arq = fopen(nome, "r");
+    if(arq == NULL) {
+        printf("Não encontrei o arquivo %s, \n", nome);
+    }
+    else {
+        int tam = 0;
+        int tamanho_original = 100;
+        char *text = malloc(tamanho_original * sizeof(char));
+        while(!feof (arq)) {
+            if(tam >= tamanho_original)
+                text = realocar_memoria(text, &tamanho_original);
+            fscanf(arq, "%c", &text[tam]);
+            tam++;
+        }
+        text[tam-2] = '\0';
+        char *frase_cifrada = aplicar_rotacao(text, d1, d2, tam);
+        printf("%s\n", frase_cifrada);
+        free(frase_cifrada);
+        free(text);
+        fclose(arq);
+    }
+
+    return 0;
+}
+
+char * realocar_memoria(char * p, int * tamanho) {
+    char *novo = malloc(*tamanho * 2 * sizeof(char));
+    for(int i = 0; i < *tamanho; i++) 
+        novo[i] = p[i];
+    free(p);
+    *tamanho *= 2;
+    return novo;
+}
+
+char * especiais_para_letras(char *frase, int tamanho_da_frase) {
+    char *p = malloc(tamanho_da_frase * sizeof(char));
     char *init = p;
     while(*frase) {
         switch(*frase) {
@@ -51,8 +99,8 @@ char * especiais_para_letras(char *frase) {
 
 // d1 aplica uma rotação para as maiúsculas
 // d2 aplica uma rotação para as minúsculas
-char * rotacao(char *frase2, char d1, char d2) {
-    char *p2 = malloc(TAMANHO_DA_FRASE);
+char * rotacao(char *frase2, char d1, char d2, int tamanho_da_frase) {
+    char *p2 = malloc(tamanho_da_frase * sizeof(char));
     char *init2 = p2;
     while(*frase2) {
         if(*frase2 >= 'A' && *frase2 <= 'Z')
@@ -69,77 +117,12 @@ char * rotacao(char *frase2, char d1, char d2) {
     return init2; 
 }
 
-int string_compare(char *s1, char *s2) {
-    while(*s1 != '\0') {
-        if(*s1++ != *s2++)
-            return 0;
-    }
-    if(*s2 == '\0')
-        return 1;
-    return 0;
+
+char * aplicar_rotacao(char * p, int d1, int d2, int tamanho_da_frase) {
+    char * f1 = especiais_para_letras(p, tamanho_da_frase);
+    char * f2 = rotacao(f1, (char)d1, (char)d2, tamanho_da_frase);
+    free(f1);
+    return f2;
 }
 
-void test_string_compare() {
-    if (!string_compare("oi", "oi")) 
-        printf("Primeiro test de string_compare falhou\n");
-    else if(string_compare("oi", "oio"))
-        printf("Segundo teste de string_compare falhou\n");
-    else if(!string_compare("", ""))
-        printf("Terceiro teste de string_compare falhou\n");
-    else if(!string_compare("Hello how are you", "Hello how are you"))
-        printf("Quarto teste de string_compare falhou\n");
-    else 
-        printf("Todos os testes de string_compare passaram\n");
-}
 
-void test_especiais_para_letras() {
-    char *d = "Para um bom entendedor, meia palavra basta.";
-    char *t = especiais_para_letras(d);
-    if(!string_compare(t, "Paraumbomentendedorvrmeiapalavrabastapt")) {
-        printf("Primeiro test de especiais_para_letras falhou\n");
-    }
-    else 
-        printf("Todos os testes de especiais_para_letras passaram\n");
-    free(t);
-}
-
-void test_rotacao() {
-    char *d = "Paraumbomentendedorvrmeiapalavrabastapt";
-    char *t = rotacao(d, 3, 5);
-    char *target = "Sfwfzrgtrjsyjsijitwawrjnfufqfawfgfxyfuy";
-    if(!string_compare(t, target))  {
-        printf("Primeiro test de rotacao falhou\n");
-        printf("%s\n", t);
-        printf("%s\n", target);
-    }
-    else 
-        printf("Os testes de rotacao() passaram\n");
-}
-
-char * aplicar_rotacao(char * p, int d1, int d2) {
-    return rotacao(especiais_para_letras(p), (char)d1, (char)d2);
-}
-
-void test_both() {
-    char * big = "Em horas inda louras, lindas\n"
-                 "Clorindas e Belindas, brandas\n"
-                 "Brincam nos tempos das Berlindas\n"
-                 "As vindas vendo das varandas.";
-    printf("%s\n", big);
-    char *t = aplicar_rotacao(big, 10, 7);
-    char *target = "OtovyhzpukhsvbyhzcyspukhzusMsvypukhzlLlspukhzcyiyhukhzusLypujhtuvzaltwvzkhzLlyspukhzusKzcpukhzclukvkhzchyhukhzwa";
-    if(!string_compare(t, target)) 
-        printf("A função aplicar_rotacao() não está funcionando.\n");
-    else 
-        printf("aplicar_rotacao() está funcionando.\n");
-}
-
-//Usando d 1 = 10 e d 2 = 7, (imprimindo em 80 colunas)
-//
-//OtovyhzpukhsvbyhzcyspukhzusMsvypukhzlLlspukhzcyiyhukhzusLypujhtuvzaltwvzkhzLlysp
-//ukhzusKzcpukhzclukvkhzchyhukhzwa
-
-int main() {
-    test_both();
-    return 0;
-}

@@ -95,7 +95,12 @@ amaamkwvpiycmvtjwbiuiomvbmkwuwdqlwkwuwwlqijwxbvtvt
 
 - Texto 2:
 
-RmtixnggePhnixsexlmhftmxlixexxlxgjntkmbxklokgeRmtixwxnqgeexltnuxkzbgxlxmexlvhnkz
+Esse é fácil, é só perceber que toda letra maiúscula vem depois de um ge. Logo, 
+ge deve ser um ponto, visto que a primeira transformação retira os espaços. 
+
+No caso, pt -> ge. E portanto sabemos que d2 = 13. 
+
+RmtixnggephnixsexlmhftmxlixexxlxgjntkmbxklokgeRmtixwxnqgeexltnuxkzbgxlxmexlvhnkz
 xmmxlxgkhgwxeexlimgeRmtixmkhblgeRfbgvxsexlihbokhglxgetfxeexlgeRmtixjntmkxgexmexh
 bzghgxgkhnxeexlimgeRmtixvbgjgePatnyyxswxnqvnbeexkxltlhnixwxanbexwtglngxihxexgeRm
 tixlbqgexmytbmxlryhgwkxexlhbzghglxmexlihbokhglimgeRmtixlximgeYhkljnxbellhgmmxgwk
@@ -119,4 +124,13 @@ zslxljxjqqxhmfkyxljxjyesthmizwhminjWjwrtjljsxeztwiszslxezxyfjsinlpjnyxzjgjwywflz
 slxajwtwiszslljxhmqfljsuyNnyxjhmzsikzjskenlCzhmxyfgjsnxyinjxjxXtwynrNtrjsyijwfzx
 xnhmyxwjnhmxyjLfsinifykzjwifxqfjslxyjsnhmytgxtqjyjXtwyijxEjzyxhmjsawifxfzxxhmqnj
 xxqnhmrnyCzhmxyfgjsljxhmwnjgjsbnwi(ifezlqjnhmrjmw)uysq
+
+
+
+
+3-) Se utilizarem alocação dinâmica de memória (malloc no C), rodem o programa valgrind para checar se toda a memória alocada foi devidamente liberada.
+
+valgrind --leak-check=full ./ep1 
+
+- Imprimir a saída em stdout
 
