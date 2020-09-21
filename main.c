@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// TODO test bigger than 26 values
 // TODO solve valgrind jump depends on uninitialised value(s)
 // TODO test the chalenges
 
@@ -14,6 +13,17 @@ int main() {
     int d1, d2;
     printf("Digite o valor dos deslocamentos d1 e d2: \n");
     scanf("%d %d", &d1, &d2);
+
+    if(d1 < 0) {
+        d1 %= 26;
+        d1 += 26;
+    }
+
+    if(d2 < 0) {
+        d2 %= 26;
+        d2 += 26;
+    }
+       
 
     printf("Digite o nome do arquivo a ser lido:\n");
     char nome[80];
