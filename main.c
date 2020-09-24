@@ -64,7 +64,9 @@ char * realocar_memoria(char * p, int * tamanho) {
 }
 
 char * especiais_para_letras(char *frase, int tamanho_da_frase) {
-    char *p = malloc(tamanho_da_frase * sizeof(char));
+    char *p = calloc(tamanho_da_frase * sizeof(char));
+    for(int i = 0; i < tamanho_da_frase; i++) 
+        p[i] = 0;
     char *init = p;
     while(*frase) {
         switch(*frase) {
@@ -111,6 +113,8 @@ char * especiais_para_letras(char *frase, int tamanho_da_frase) {
 // d2 aplica uma rotação para as minúsculas
 char * rotacao(char *frase2, char d1, char d2, int tamanho_da_frase) {
     char *p2 = malloc(tamanho_da_frase * sizeof(char));
+    for(int i = 0; i < tamanho_da_frase; i++)
+        p2[i] = 0;
     char *init2 = p2;
     while(*frase2) {
         if(*frase2 >= 'A' && *frase2 <= 'Z')
